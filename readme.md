@@ -1,4 +1,8 @@
-<body style="background-color:grey;">
+<style>
+    body { background-color: grey; }
+    pre, pre:not([class]) { background-color: red; }
+</style>
+
 
 
 # Harry Featherstone
