@@ -1,10 +1,4 @@
----
-title: "Something fascinating"
-output:
-  html_document:
-    toc: true
-    toc_depth: 4
----
+
 
 
 
@@ -13,7 +7,7 @@ output:
 
 
 
-<img src="image1.jpg" alt="Coriander Plants in peat-free growing media" width="300" height="50">
+![image](img1.jpg)
 
 ## Work Experience
 
