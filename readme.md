@@ -8,9 +8,11 @@
 # Harry Featherstone
 ### Data Scientist
 
-## Work Experience
 
-![image](img1.jpg)
+
+<img src="image1.png" alt="Coriander Plants in peat-free growing media" width="300" height="50">
+
+## Work Experience
 
 ### AngloAmerican 2022-Current
 
