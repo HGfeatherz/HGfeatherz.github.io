@@ -1,7 +1,10 @@
-<style>
-    body { background-color: grey; }
-    pre, pre:not([class]) { background-color: red; }
-</style>
+---
+title: "Something fascinating"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
 
 
 
