@@ -10,7 +10,7 @@
 
 
 
-<img src="image1.png" alt="Coriander Plants in peat-free growing media" width="300" height="50">
+<img src="image1.jpg" alt="Coriander Plants in peat-free growing media" width="300" height="50">
 
 ## Work Experience
 
