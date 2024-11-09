@@ -3,6 +3,8 @@
 
 ## Work Experience
 
+![image](img1.jpg)
+
 ### AngloAmerican 2022-Current
 
 2.5 years as a data scientist working with the agricultural sector in Sales and Marketing
