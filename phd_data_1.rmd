@@ -1,0 +1,140 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning =FALSE, message = FALSE)
+```
+
+# libraries 
+
+invalid number = missing
+
+```{r}
+library(ggplot2)
+library(readxl)
+library(Gini)
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+```
+
+
+# import files
+```{r}
+df<-read_excel("2021cont.xlsx")
+
+
+```
+
+
+setwd("C:/Users/HGFea/Documents/Vs_code/phd")
+
+```{r}
+ggplot(df, aes(x = value, y = trtlong.)) +
+        geom_segment(aes(x = 0, y = value., xend = value, yend = trtlong)) +
+        #coord_flip()+
+        geom_point(color="#7e5fc4", size =4) +
+        theme_classic()+
+        geom_vline(xintercept=0, linetype = "dashed")+
+        labs(x = "Yield: POLY4 vs SP (%)")+
+        labs(y = "P (ppm)")+
+        facet_wrap(vars(crop))
+
+```
+
+
+```{r}
+df_cat<-read_excel("2021cat.xlsx")
+
+
+df_sum <- df %>%
+    group_by(trtlong, crop, sub) %>%
+    summarise(mean_val = mean(value, na.rm = TRUE), .groups = "drop")
+
+ggplot(df_sum, aes( x = crop, y = mean_val))+
+        geom_line()
+
+ggplot(df_sum, aes(x = mean_val, y = trtlong)) +
+    geom_segment(aes(x = 0, y = trtlong, xend = mean_val, yend = trtlong)) + # Corrected 'y' and 'yend'
+    geom_point(color = "#7e5fc4", size = 4) +
+    theme_classic() +
+    geom_vline(xintercept = 0, linetype = "dashed") +
+    labs(x = "Yield: POLY4 vs SP (%)", y = "P (ppm)") + # Combined `labs()` for x and y
+    facet_wrap(vars(crop))
+
+```
+
+```{r}
+df_wide <- df %>%
+    pivot_wider(names_from = sub, values_from = value)
+    
+df_sum <- df %>%
+    group_by(meau, crop, sub) %>%
+    summarise(mean_val = mean(value, na.rm = TRUE), .groups = "drop")
+
+ggplot(df_sum, aes(x = mean_val, y = meau)) +
+    geom_segment(aes(x = 0, y = meau, xend = mean_val, yend = meau)) + # Corrected 'y' and 'yend'
+    geom_point(color = "#7e5fc4", size = 4) +
+    theme_classic() +
+    geom_vline(xintercept = 0, linetype = "dashed") +
+    labs(x = "Yield: POLY4 vs SP (%)", y = "P (ppm)") + # Combined `labs()` for x and y
+    facet_wrap(vars(crop, sub))
+```
+
+```{r}
+df_wide <- df %>%
+    pivot_wider(
+        names_from = sub,
+        values_from = value,
+        values_fn = list(value = mean)  # Replace `mean` with another function if needed
+    )
+```
+
+```{r}
+df_long <- df_cat %>%
+    pivot_longer(
+        cols = c(
+            height,
+            count, 
+            freshyield,
+            dryyield, 
+            ld, 
+            rootlength,
+            potweight,
+            moist,
+            stemcount,
+            phygen, 
+            red, 
+            green,
+            blue
+        ),
+        names_to = "sub2",          # Corrected placement of `names_to`
+        values_to = "value"         # Corrected placement of `values_to`
+    )
+
+
+```
+
+```{r}
+df_long <- df_cat %>%
+    rename(meau_original = meau) %>%  
+    pivot_longer(
+        cols = c(height, count, freshyield, dryyield, ld, rootlength, potweight,
+                 moist, stemcount, phygen, red, green, blue),
+        names_to = "meau",           
+        values_to = "value"         
+    ) %>%
+    pivot_wider(
+        names_from = sub,            
+        values_from = value,         
+        values_fn = list(value = mean)  
+    )
+
+df_long2 <- df_long %>%
+    mutate(diff_pf_peat = peat - pf)  # Create a new column with the difference
+
+
+
+```
