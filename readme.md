@@ -34,4 +34,6 @@ A solution to this was to develop sensor arrays that would deliver real-time dat
 
 ## Projects
 **project 1**
+
+https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/phd_test.ipynb
 **project 2**

@@ -3,6 +3,8 @@ library(ggplot2)
 
 setwd("C:/Users/HGFea/Documents/Vs_code/phd")
 
+
+
 ggplot(dataset, aes(x = POLY4vsStandard_perc_avg, y = P..ppm.)) +
 
         geom_segment(aes(x = 0, y = P..ppm., xend = POLY4vsStandard_perc_avg, yend = P..ppm.)) +
