@@ -1,4 +1,4 @@
-phd_data_rstudio
+Peat vs Peat-Free substrates
 ================
 HGF
 2024-11-12
@@ -16,7 +16,7 @@ That was a mistake.
 I’m now having a look at my old data to try and observe some broad
 themes for the project.
 
-# libraries
+### libraries
 
 ``` r
 library(ggplot2)
@@ -27,10 +27,10 @@ library(tidyr)
 library(tidyverse)
 ```
 
-# import files
+### import files
 
-I have two file types to work with, one being catagorical for
-assessments, the other being a continous dataset.
+I have two file types to work with, one being categorical for
+assessments, the other being a continuous dataset.
 
 ``` r
 df<-read_excel("2021cont.xlsx")
@@ -42,50 +42,11 @@ df_cat<-read_excel("2021cat.xlsx")
 It’s been a few years since i’ve taken a look at this data, so lets have
 a quick peek and see whats going on.
 
-### N counts for each observation
-
 Due to the way I laid out this data, I strongly suspect there will be
 some missing values. I’ll also see how many observations I had per
 treatment & experiment/trial. I’m doing this because the replicate
 number is missing from this data - i’ll blame my past self for this
 later.
-
-``` r
-summary(df)
-```
-
-    ##      exp              trtlong              crop               sub           
-    ##  Length:14399       Length:14399       Length:14399       Length:14399      
-    ##  Class :character   Class :character   Class :character   Class :character  
-    ##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-    ##                                                                             
-    ##                                                                             
-    ##                                                                             
-    ##                                                                             
-    ##     amend           amendall           amf               comprate     
-    ##  Length:14399       Mode:logical   Length:14399       Min.   :0.0000  
-    ##  Class :character   NA's:14399     Class :character   1st Qu.:0.0000  
-    ##  Mode  :character                  Mode  :character   Median :0.0000  
-    ##                                                       Mean   :0.2974  
-    ##                                                       3rd Qu.:0.5000  
-    ##                                                       Max.   :2.0000  
-    ##                                                                       
-    ##       rb                 day          daycode              meau          
-    ##  Length:14399       Min.   : 0.00   Length:14399       Length:14399      
-    ##  Class :character   1st Qu.:14.00   Class :character   Class :character  
-    ##  Mode  :character   Median :21.00   Mode  :character   Mode  :character  
-    ##                     Mean   :21.84                                        
-    ##                     3rd Qu.:32.00                                        
-    ##                     Max.   :50.00                                        
-    ##                                                                          
-    ##      value            daynew       comprate2     
-    ##  Min.   :  0.00   Min.   :  0.00   Mode:logical  
-    ##  1st Qu.:  3.00   1st Qu.:  7.00   NA's:14399    
-    ##  Median :  7.00   Median : 21.00                 
-    ##  Mean   : 12.87   Mean   : 33.74                 
-    ##  3rd Qu.: 13.00   3rd Qu.: 32.00                 
-    ##  Max.   :187.00   Max.   :100.00                 
-    ##  NA's   :1076     NA's   :7715
 
 ``` r
 na_counts <- sapply(df, function(x) sum(is.na(x)))
@@ -100,28 +61,25 @@ print(na_counts)
 ``` r
 combo_counts <- df %>%
   count(exp, trtlong, meau, sub)
-
-print(combo_counts)
+head(combo_counts)
 ```
 
-    ## # A tibble: 548 × 5
-    ##    exp   trtlong       meau       sub       n
-    ##    <chr> <chr>         <chr>      <chr> <int>
-    ##  1 e10   0.5comp PF    count      pf        6
-    ##  2 e10   0.5comp PF    dryyield   pf        6
-    ##  3 e10   0.5comp PF    freshyield pf        6
-    ##  4 e10   0.5comp PF    height     pf       30
-    ##  5 e10   0.5comp Peat  count      peat      6
-    ##  6 e10   0.5comp Peat  dryyield   peat      6
-    ##  7 e10   0.5comp Peat  freshyield peat      6
-    ##  8 e10   0.5comp Peat  height     peat     30
-    ##  9 e10   0.5compamf PF count      pf        6
-    ## 10 e10   0.5compamf PF dryyield   pf        6
-    ## # ℹ 538 more rows
+    ## # A tibble: 6 × 5
+    ##   exp   trtlong      meau       sub       n
+    ##   <chr> <chr>        <chr>      <chr> <int>
+    ## 1 e10   0.5comp PF   count      pf        6
+    ## 2 e10   0.5comp PF   dryyield   pf        6
+    ## 3 e10   0.5comp PF   freshyield pf        6
+    ## 4 e10   0.5comp PF   height     pf       30
+    ## 5 e10   0.5comp Peat count      peat      6
+    ## 6 e10   0.5comp Peat dryyield   peat      6
 
 As there are quite a few NA counts, mostly due to the data layout.
 Rather than mutating it right away, i’d like to see if I can filter it
 down to see some trends.
+
+The counts for each trt_long & meau is also quite useful, it’s telling
+me how many observations I have per assessment (such as count etc.).
 
 First thing i’ll do is check out some of the unique values in certain
 cols. I split each observation type into a col called ‘meau’ (read:
@@ -233,7 +191,14 @@ Here i’ve added error bars and a mean value for each bar.
 Now we’ve had a look at height at 32 days, lets have a quick look at the
 other observations in ‘meau’
 
-# Values within the treatments
+# Observations
+
+Lets have a look at some of the other observations and see if we can
+spot any trends.
+
+I’m going to use a lollipop style graph here with a vline/abline set at
+0, this is because i’ll want to compare the % change of peat vs
+peat-free later.
 
 ``` r
 # filtering and summing
@@ -254,10 +219,13 @@ ggplot(df_sum, aes(x = mean_val, y = meau)) +
 
 ![](phd_data_rstudio_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
-\# lets get some interesting differences
+Now lets see if we can refine those differences to get some clarity,
+first thing we can do is normalize the data by putting it on a % scale,
+and subtracting the values for each measurement based on ‘peat-free -
+peat’,
 
 ``` r
-# calculating the means and dropping phygen (phygen is damage to leaves usualy from p&d, very little recorded so is being dropped)
+# calculating the means and dropping phygen (phygen is damage to leaves usual from p&d, very little recorded so is being dropped)
 
 df_sum <- df %>%
   filter(sub == "peat" | sub == "pf", meau != "phygen") %>%
@@ -268,9 +236,7 @@ df_sum <- df %>%
 
 df_spread <- df_sum %>%
   pivot_wider(names_from = sub, values_from = mean_val) %>%
-  mutate(
-    pct_diff = (pf - peat) / peat * 100 
-  )
+  mutate(pct_diff = (pf - peat) / peat * 100 )
 
 
 #head(df_spread)
@@ -281,96 +247,77 @@ ggplot(df_spread, aes(x = pct_diff, y = meau)) +
   theme_classic() +
   geom_vline(xintercept = 0, linetype = "dashed") +  
   labs(x = "Percentage Difference: PF vs PEAT (%)", y = "Measurement") + 
-  ggtitle("Peat-Free vs Peat")
+  ggtitle("Peat-Free vs Peat")+
+  facet_wrap(vars(crop))  
 ```
 
 ![](phd_data_rstudio_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-``` r
-  facet_wrap(vars(crop))  
-```
-
-    ## <ggproto object: Class FacetWrap, Facet, gg>
-    ##     compute_layout: function
-    ##     draw_back: function
-    ##     draw_front: function
-    ##     draw_labels: function
-    ##     draw_panels: function
-    ##     finish_data: function
-    ##     init_scales: function
-    ##     map_data: function
-    ##     params: list
-    ##     setup_data: function
-    ##     setup_params: function
-    ##     shrink: TRUE
-    ##     train_scales: function
-    ##     vars: function
-    ##     super:  <ggproto object: Class FacetWrap, Facet, gg>
-
 This graph is showing us the % difference for each measurement between
 peat and peat-free. As we can see, generally peat-free is performing
-poorly in most measurements, except for a rather intersting case in dry
-yield and rootlength.
+poorly in most measurements, except for a rather interesting case in dry
+yield and root length in Coriander. Generally the peat substrate
+outperforms the peat-free in basil, but this story is a bit more complex
+with Coriander.
 
-## Old data
+Next we’re going to look at the treatment side of the project. This was
+to see if the addition of microbial amendments (like fungi, in this case
+*Mychorriza*) could enchance the growth in peat-free substrates.
 
-# Pivoting the dataset
+## Treatments
 
-Building two col values for the substrate types ‘Peat’ & ‘pf’
-
-``` r
-df_wide <- df %>%
-    pivot_wider(
-        names_from = sub,
-        values_from = value,
-        values_fn = list(value = mean)  # Replace `mean` with another function if needed
-    )
-```
+Lets start by filtering for our required parameters, peat-free (‘pf’)
+and if it has amf or not.
 
 ``` r
-df_long <- df_cat %>%
-    pivot_longer(
-        cols = c(
-            height,
-            count, 
-            freshyield,
-            dryyield, 
-            ld, 
-            rootlength,
-            potweight,
-            moist,
-            stemcount,
-            phygen, 
-            red, 
-            green,
-            blue
-        ),
-        names_to = "sub2",          # Corrected placement of `names_to`
-        values_to = "value"         # Corrected placement of `values_to`
-    )
+df_pf_amf <- df %>%
+  filter(sub == "pf", amf == "none" | amf== "amf") %>%
+  group_by(meau, crop, amf) %>%
+  summarise(mean_val = mean(value, na.rm = TRUE), .groups = "drop")
+
+
+ggplot(df_pf_amf, aes(x = amf, y = mean_val, fill = amf)) +
+  geom_bar(stat = "identity", position = "dodge") +  
+  scale_fill_manual(values = c("none" = "#6B873D", "amf" = "#068745")) +  
+  labs(x = "AMF Treatment", y = "Mean Value", fill = "AMF") +
+  ggtitle("Impact of AMF on PF Treatment Values") +
+  facet_wrap(vars(crop, meau), scales = 'free') + 
+  theme_classic()
 ```
 
-# Generating a % difference between substrate types
+![](phd_data_rstudio_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+This looks a bit busy for my liking, lets bring in our previous code for
+our lolipops and get the % difference between amf treatments and
+controls (i.e. none).
 
 ``` r
-df_long <- df_cat %>%
-    rename(meau_original = meau) %>%  
-    pivot_longer(
-        cols = c(height, count, freshyield, dryyield, ld, rootlength, potweight,
-                 moist, stemcount, phygen, red, green, blue),
-        names_to = "meau",           
-        values_to = "value"         
-    ) %>%
-    pivot_wider(
-        names_from = sub,            
-        values_from = value,         
-        values_fn = list(value = mean)  
-    )
+df2<-df%>%filter(!meau %in% c("blue", "green", "red", "moist", "phygen", "potweight", "root", "rootlength", "stemcount"))
 
-df_long2 <- df_long %>%
-    mutate(diff_pf_peat = peat - pf)  
+df_pf_amf <- df2 %>%
+  filter(sub == "pf") %>%
+  group_by(meau, crop, amf) %>%
+  summarise(mean_val = mean(value, na.rm = TRUE), .groups = "drop")
 
 
-new_diff<- df_long2%>%
-        group_by(meau,crop,)
+df_diff <- df_pf_amf %>%
+  pivot_wider(names_from = amf, values_from = mean_val) %>%
+  mutate(diff = (amf - none) /none *100)  # Calculate the difference
+
+
+
+ggplot(df_diff, aes(x = diff, y = meau)) +
+  geom_segment(aes(x = 0, y = meau, xend = diff, yend = meau), size = 1) + 
+  geom_point(color = "#7e5fc4", size = 4) +
+  theme_classic() +
+  geom_vline(xintercept = 0, linetype = "dashed") +  
+  labs(x = "Percentage Difference: control vs amf", y = "Measurement") + 
+  ggtitle("Control vs AMF")+
+  facet_wrap(vars(crop)) 
 ```
+
+![](phd_data_rstudio_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+That looks much better, now we can see that the impact of treating
+peat-free substrate with AMF greatly increases several growth
+charcterstics in Coriander, just not basil.
+
+I doubt it’s over 100% though!
