@@ -30,7 +30,7 @@ During the development of this research, I (like most of the world) ended up bei
 
 A solution to this was to develop sensor arrays that would deliver real-time data without the need to be present in the facilities. It was during the course of development for these sensors that I found a profound interest in programming langauges.
 
-
+a
 
 ## Projects
 **project 1**
