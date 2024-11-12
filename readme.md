@@ -46,7 +46,7 @@ This is a quick look at some of my PhD data, I wanted to remind myself of how it
 
 I needed to find some documents with keywords in them, this is a scanner for pdf files.
 
-[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/pdf_scan.ipynd)
+[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/pdf_scan.ipynb)
 
 **Project 3**
 
