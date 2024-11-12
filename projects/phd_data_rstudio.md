@@ -42,6 +42,21 @@ df_cat<-read_excel("2021cat.xlsx")
 It’s been a few years since i’ve taken a look at this data, so lets have
 a quick peek and see whats going on.
 
+``` r
+head(df)
+```
+
+    ## # A tibble: 6 × 15
+    ##   exp   trtlong  crop  sub   amend amendall amf   comprate rb      day daycode
+    ##   <chr> <chr>    <chr> <chr> <chr> <lgl>    <chr>    <dbl> <chr> <dbl> <chr>  
+    ## 1 e10   con Peat basil peat  <NA>  NA       none         0 none     32 M      
+    ## 2 e10   con Peat basil peat  <NA>  NA       none         0 none     32 M      
+    ## 3 e10   con Peat basil peat  <NA>  NA       none         0 none     32 M      
+    ## 4 e10   con Peat basil peat  <NA>  NA       none         0 none     32 M      
+    ## 5 e10   con Peat basil peat  <NA>  NA       none         0 none     32 M      
+    ## 6 e10   con Peat basil peat  <NA>  NA       none         0 none     32 M      
+    ## # ℹ 4 more variables: meau <chr>, value <dbl>, daynew <dbl>, comprate2 <lgl>
+
 Due to the way I laid out this data, I strongly suspect there will be
 some missing values. I’ll also see how many observations I had per
 treatment & experiment/trial. I’m doing this because the replicate
@@ -156,7 +171,7 @@ ggplot(df_height_clean2, aes(x = sub, y = value, fill = sub)) +
   theme_classic()
 ```
 
-![](phd_data_rstudio_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](phd_data_rstudio_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 Looks like the peat substrate is greater in height at day 32 for both
 crop types. Lets add a bit more detail!
@@ -184,7 +199,7 @@ ggplot(df_summary, aes(x = sub, y = mean_value, fill = sub)) +
   theme_classic()
 ```
 
-![](phd_data_rstudio_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](phd_data_rstudio_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 Here i’ve added error bars and a mean value for each bar.
 
@@ -195,29 +210,6 @@ other observations in ‘meau’
 
 Lets have a look at some of the other observations and see if we can
 spot any trends.
-
-I’m going to use a lollipop style graph here with a vline/abline set at
-0, this is because i’ll want to compare the % change of peat vs
-peat-free later.
-
-``` r
-# filtering and summing
-
-df_sum <- df %>%
-    filter(sub == "peat" | sub == "pf")%>%
-    group_by(meau, crop, sub) %>%
-    summarise(mean_val = mean(value, na.rm = TRUE), .groups = "drop")
-
-ggplot(df_sum, aes(x = mean_val, y = meau)) +
-    geom_segment(aes(x = 0, y = meau, xend = mean_val, yend = meau)) + 
-    geom_point(color = "#7e5fc4", size = 4) +
-    theme_classic() +
-    geom_vline(xintercept = 0, linetype = "dashed") +
-    labs(x = "Yield: POLY4 vs SP (%)", y = "P (ppm)") + 
-    facet_wrap(vars(crop, sub))
-```
-
-![](phd_data_rstudio_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 Now lets see if we can refine those differences to get some clarity,
 first thing we can do is normalize the data by putting it on a % scale,
@@ -262,7 +254,7 @@ with Coriander.
 
 Next we’re going to look at the treatment side of the project. This was
 to see if the addition of microbial amendments (like fungi, in this case
-*Mychorriza*) could enchance the growth in peat-free substrates.
+*Mychorriza*) could enhance the growth in peat-free substrates.
 
 ## Treatments
 
@@ -275,6 +267,7 @@ df_pf_amf <- df %>%
   group_by(meau, crop, amf) %>%
   summarise(mean_val = mean(value, na.rm = TRUE), .groups = "drop")
 
+# simple bar charts, facted by crop type and measurement/observation
 
 ggplot(df_pf_amf, aes(x = amf, y = mean_val, fill = amf)) +
   geom_bar(stat = "identity", position = "dodge") +  
@@ -286,9 +279,12 @@ ggplot(df_pf_amf, aes(x = amf, y = mean_val, fill = amf)) +
 ```
 
 ![](phd_data_rstudio_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
 This looks a bit busy for my liking, lets bring in our previous code for
 our lolipops and get the % difference between amf treatments and
 controls (i.e. none).
+
+Lets also filter out a few measurements.
 
 ``` r
 df2<-df%>%filter(!meau %in% c("blue", "green", "red", "moist", "phygen", "potweight", "root", "rootlength", "stemcount"))
@@ -301,7 +297,7 @@ df_pf_amf <- df2 %>%
 
 df_diff <- df_pf_amf %>%
   pivot_wider(names_from = amf, values_from = mean_val) %>%
-  mutate(diff = (amf - none) /none *100)  # Calculate the difference
+  mutate(diff = (amf - none) /none *100)  
 
 
 
@@ -316,8 +312,7 @@ ggplot(df_diff, aes(x = diff, y = meau)) +
 ```
 
 ![](phd_data_rstudio_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
 That looks much better, now we can see that the impact of treating
 peat-free substrate with AMF greatly increases several growth
-charcterstics in Coriander, just not basil.
-
-I doubt it’s over 100% though!
+characteristics in Coriander, just not basil.

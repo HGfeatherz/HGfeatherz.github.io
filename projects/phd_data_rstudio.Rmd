@@ -47,6 +47,11 @@ df_cat<-read_excel("2021cat.xlsx")
 
 It's been a few years since i've taken a look at this data, so lets have a quick peek and see whats going on.
 
+```{r}
+head(df)
+```
+
+
 Due to the way I laid out this data, I strongly suspect there will be some missing values. I'll also see how many observations I had per 
 treatment & experiment/trial. I'm doing this because the replicate number is missing from this data - i'll blame my past self for this later.
 ```{r}
@@ -145,25 +150,6 @@ Now we've had a look at height at 32 days, lets have a quick look at the other o
 
 Lets have a look at some of the other observations and see if we can spot any trends.
 
-I'm going to use a lollipop style graph here with a vline/abline set at 0, this is because i'll want to compare the % change of peat vs peat-free later.
-
-```{r}
-
-# filtering and summing
-
-df_sum <- df %>%
-    filter(sub == "peat" | sub == "pf")%>%
-    group_by(meau, crop, sub) %>%
-    summarise(mean_val = mean(value, na.rm = TRUE), .groups = "drop")
-
-ggplot(df_sum, aes(x = mean_val, y = meau)) +
-    geom_segment(aes(x = 0, y = meau, xend = mean_val, yend = meau)) + 
-    geom_point(color = "#7e5fc4", size = 4) +
-    theme_classic() +
-    geom_vline(xintercept = 0, linetype = "dashed") +
-    labs(x = "Yield: POLY4 vs SP (%)", y = "P (ppm)") + 
-    facet_wrap(vars(crop, sub))
-```
 
 Now lets see if we can refine those differences to get some clarity, first thing we can do is normalize the data by putting it on a % scale, and subtracting the values for each measurement based on 'peat-free - peat',
 
@@ -201,12 +187,13 @@ ggplot(df_spread, aes(x = pct_diff, y = meau)) +
 This graph is showing us the % difference for each measurement between peat and peat-free. As we can see, generally peat-free is performing poorly in most 
 measurements, except for a rather interesting case in dry yield and root length in Coriander. Generally the peat substrate outperforms the peat-free in basil, but this story is a bit more complex with Coriander.
 
-Next we're going to look at the treatment side of the project. This was to see if the addition of microbial amendments (like fungi, in this case *Mychorriza*) could enchance the growth in peat-free substrates.
+Next we're going to look at the treatment side of the project. This was to see if the addition of microbial amendments (like fungi, in this case *Mychorriza*) could enhance the growth in peat-free substrates.
 
 
 ## Treatments
 
 Lets start by filtering for our required parameters, peat-free ('pf') and if it has amf or not.
+
 
 ```{r}
 
@@ -216,6 +203,7 @@ df_pf_amf <- df %>%
   group_by(meau, crop, amf) %>%
   summarise(mean_val = mean(value, na.rm = TRUE), .groups = "drop")
 
+# simple bar charts, facted by crop type and measurement/observation
 
 ggplot(df_pf_amf, aes(x = amf, y = mean_val, fill = amf)) +
   geom_bar(stat = "identity", position = "dodge") +  
@@ -226,7 +214,10 @@ ggplot(df_pf_amf, aes(x = amf, y = mean_val, fill = amf)) +
   theme_classic()
 
 ```
-This looks a bit busy for my liking, lets bring in our previous code for our lolipops and get the % difference between amf treatments and controls (i.e. none).
+
+ This looks a bit busy for my liking, lets bring in our previous code for our lolipops and get the % difference between amf treatments and controls (i.e. none).
+
+Lets also filter out a few measurements.
 
 ```{r}
 df2<-df%>%filter(!meau %in% c("blue", "green", "red", "moist", "phygen", "potweight", "root", "rootlength", "stemcount"))
@@ -239,7 +230,7 @@ df_pf_amf <- df2 %>%
 
 df_diff <- df_pf_amf %>%
   pivot_wider(names_from = amf, values_from = mean_val) %>%
-  mutate(diff = (amf - none) /none *100)  # Calculate the difference
+  mutate(diff = (amf - none) /none *100)  
 
 
 
@@ -253,8 +244,9 @@ ggplot(df_diff, aes(x = diff, y = meau)) +
   facet_wrap(vars(crop)) 
 
 ```
-That looks much better, now we can see that the impact of treating peat-free substrate with AMF greatly increases several growth charcterstics in Coriander, just not basil.
 
-I doubt it's over 100% though!
+ That looks much better, now we can see that the impact of treating peat-free substrate with AMF greatly increases several growth characteristics in Coriander, just not basil.
+
+
 
 
