@@ -50,8 +50,8 @@ I needed to find some documents with keywords in them, this is a scanner for pdf
 
 **Project 3**
 
-*London Crime and Affordability* [Python]
+*KNN* [R]
 
-This is a map of London I've been working on to help me decide which areas are both afforable and if i can get away without having to buy home insurance.
+A foray into ML models, looking at the iris dataset for categorising plant species using K-clustering
 
-[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/phd_test.ipynb)
+[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/KNN_r.md)
