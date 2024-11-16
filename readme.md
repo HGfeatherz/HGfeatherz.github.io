@@ -40,7 +40,7 @@ A foray into ML models, looking at the iris dataset for categorising plant speci
 
 Typically I use R or Qgis for GIS purposes, but I found a really simple tutorial online so thought i'd give it a go.
 
-[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/map_of_lndn.ipynb)
+[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/map_of_ldn.ipynb)
 
 **Project 4**
 
