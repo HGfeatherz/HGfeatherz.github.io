@@ -15,11 +15,10 @@ setwd("C:/Users/HGFea/Documents/Vs_code/phd")
 
 # Introduction
 
-Here is some of my data from the PhD I did a few years back, at the time I thought it would be great to write to whole thing in Markdown and Latex.
+Here i'm just checking out some of my old PhD data and identifying some basic trends.
 
-That was a mistake.
+The research project was looking at improving peat-free growing media using biological amendments (like fungi).
 
-I'm now having a look at my old data to try and observe some  broad themes for the project.
 
 
 
@@ -36,11 +35,11 @@ library(tidyverse)
 
 ### import files
 
-I have two file types to work with, one being categorical for assessments, the other being a continuous dataset.
+I've already pulled a sample of data from my work and mutated it into one continous dataset.
 
 ```{r}
 df<-read_excel("2021cont.xlsx")
-df_cat<-read_excel("2021cat.xlsx")
+
 ```
 
 # Exploring the dataset
@@ -52,8 +51,9 @@ head(df)
 ```
 
 
-Due to the way I laid out this data, I strongly suspect there will be some missing values. I'll also see how many observations I had per 
-treatment & experiment/trial. I'm doing this because the replicate number is missing from this data - i'll blame my past self for this later.
+I want to get a count of NA, from the head we can see there are quite a few. This is mainly due to the continous nature of the data layout. I'll also be getting counts of various cols in lui of replicate numbers
+were dropped from this data.
+
 ```{r}
 na_counts <- sapply(df, function(x) sum(is.na(x)))
 print(na_counts)
@@ -64,7 +64,7 @@ head(combo_counts)
 ```
 
 
-As there are quite a few NA counts, mostly due to the data layout. Rather than mutating it right away, i'd like to see if I can filter it down to see some trends.
+Now i've seen the data and understood it a little better, i;d like to see if I can filter it down to see some trends.
 
 The counts for each trt_long & meau is also quite useful, it's telling me how many observations I have per assessment (such as count etc.).
 
