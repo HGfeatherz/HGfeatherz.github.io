@@ -1,19 +1,21 @@
 ---
-title: "Untitled"
-output: github_document
+title: "gini_rstudio"
+author: "HGF"
+date: "2024-11-18"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning =FALSE, message = FALSE)
 ```
 
-# inequality in plant data
+# Inequality in plant data
 
 Something introduced to me while studying for my PhD was the application of statistical models typically used for finance or demographics for biological data.
 
-The thinking was that plant trials tend to take a large series of measurements, and that these plant populations and would demonstrate potentially large descripencies under different treatments.
+The thinking was that plant trials tend to take a large series of measurements, and that these plant populations and would demonstrate potentially large discrepancies under different treatments.
 
-The best way to observe these differences is to see how homogenous or indeed 'unequal' they are using these stastical models.
+The best way to observe these differences is to see how homogeneous or indeed 'unequal' they are using these statistical models.
 
 Here i'm going to apply the Gini Index to the Iris data set, and see if we can build any insights.
 
@@ -33,6 +35,7 @@ library(ineq)
 data(iris)
 library(dplyr)
 library(ggplot2)
+library(rmarkdown)
 ```
 
 ## Gini
@@ -64,7 +67,7 @@ i'm going to actual make a function this time rather than have it as an anonymou
 ```{r}
 cols_numeric <-iris[sapply(iris, is.numeric)]
 
-gini_cal<-function(col){
+gini_calc<-function(col){
     ineq(col, type = "Gini")
 }
 
