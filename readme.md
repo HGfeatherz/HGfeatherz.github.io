@@ -49,3 +49,12 @@ Typically I use R or Qgis for GIS purposes, but I found a really simple tutorial
 I needed to find some documents with keywords in them, this is a scanner for pdf files.
 
 [Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/pdf_scan.ipynb)
+
+**Project 5**
+
+*Gini index* [R]
+
+I wanted to demonstrate the potential for interepreting biological data through a different lense. Here
+I use the Iris data and a modeling system typically applied to financial data.
+
+[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/gini_rstudio.html)
