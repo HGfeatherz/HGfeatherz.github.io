@@ -1,0 +1,91 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# inequality in plant data
+
+Something introduced to me while studying for my PhD was the application of statistical models typically used for finance or demographics for biological data.
+
+The thinking was that plant trials tend to take a large series of measurements, and that these plant populations and would demonstrate potentially large descripencies under different treatments.
+
+The best way to observe these differences is to see how homogenous or indeed 'unequal' they are using these stastical models.
+
+Here i'm going to apply the Gini Index to the Iris data set, and see if we can build any insights.
+
+
+# libraries & data
+
+```{r}
+
+
+```
+
+
+```{r}
+library(gglorenz)
+library(tidyverse)
+library(ineq)
+data(iris)
+library(dplyr)
+library(ggplot2)
+```
+
+## Gini
+
+I'm interested in inequality. Typically one uses measurements of inequality for looking at 
+distrubution of wealth/GDP etc. Here i'll be applying it to the iris dataset.
+
+The higher the gini value (0-1), the more unequal the data is, and therefore, the less homogenous.
+
+```{r}
+head(iris)
+colnames(iris)
+
+cols_numeric <-iris[sapply(iris, is.numeric)]
+
+gini_vals <- sapply(cols_numeric, function(col) ineq(col, type = "Gini"))
+
+print(gini_vals)
+```
+
+### 
+
+That doesn't tell us much at all as we have a series of different species in the dataset.
+
+Different specices will have different morphological traits. Lets get a closer look at the homogenity between species.
+
+i'm going to actual make a function this time rather than have it as an anonymous one.
+
+```{r}
+cols_numeric <-iris[sapply(iris, is.numeric)]
+
+gini_cal<-function(col){
+    ineq(col, type = "Gini")
+}
+
+gini_species <- lapply(iris[1:4], function(col) {
+    tapply(col, iris$Species, gini_calc)
+    })
+
+print(gini_species)
+
+```
+
+Thats great, we can now see each species gini values for each morphological measurement, generally they all look very homogenous. The only outerlier looks like Setosa with its Petal.Width at 0.2, whereas all other values are <0.01.
+
+Lets graph it next to see how it looks.
+
+```{r}
+
+
+
+
+
+
+
+```
