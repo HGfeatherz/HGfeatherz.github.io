@@ -2,7 +2,7 @@
 title: "gini_rstudio"
 author: "HGF"
 date: "2024-11-18"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}

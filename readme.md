@@ -57,4 +57,4 @@ I needed to find some documents with keywords in them, this is a scanner for pdf
 I wanted to demonstrate the potential for interepreting biological data through a different lense. Here
 I use the Iris data and a modeling system typically applied to financial data.
 
-[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/gini_rstudio.html)
+[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/gini_rstudio.md)
