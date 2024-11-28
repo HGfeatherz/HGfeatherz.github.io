@@ -42,15 +42,8 @@ Typically I use R or Qgis for GIS purposes, but I found a really simple tutorial
 
 [Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/map_of_ldn.ipynb)
 
+
 **Project 4**
-
-*PDF scanner* [Python]
-
-I needed to find some documents with keywords in them, this is a scanner for pdf files.
-
-[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/pdf_scan.ipynb)
-
-**Project 5**
 
 *Gini index* [R]
 

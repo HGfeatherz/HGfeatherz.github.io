@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE, warning =FALSE, message = FALSE)
 
 # KNN 
 
-So far in my Data Science career, the necessity for using ML models has been few and far between (with the notable exception of RandomForest),
+So far in my Data Science career, the necessity for using ML models has been surpisingly few and far between (with the notable exception of RandomForest),
 
 I decided I should probably expand my knowledge base and try some methods to get up to scratch. Here i'll be exploring  KNN or K-nearest neighbors. 
 

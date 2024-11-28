@@ -16,7 +16,7 @@ That was a mistake.
 I’m now having a look at my old data to try and observe some broad
 themes for the project.
 
-### libraries
+### pkg
 
 ``` r
 library(ggplot2)
