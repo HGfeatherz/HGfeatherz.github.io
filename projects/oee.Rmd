@@ -16,7 +16,7 @@ library(tidyverse)
 ```
 
 
-#setwd("C:/Users/HGFea/Documents/GitHub/GitHub/HGfeatherz.github.io/projects")
+#setwd("C:/Users/HGFea/Documents/GitHub/HGfeatherz.github.io/projects/bosch-production-line-performance")
 
 ## OEE
 
@@ -30,14 +30,14 @@ Identifying anonmalies
 ## Example of Finding the OEE
 
 
-```{r}
+#```{r}
 availability <- operating_time / planned_production_time
 performance <- (ideal_cycle_time * total_pieces) / operating_time
 quality <- good_pieces / total_pieces
 
 oee <- availability * performance * quality
 print(oee)
-```
+#```
 
 ## Working with Open source data
 
@@ -56,5 +56,21 @@ for (file in files) {
 
 #```
 
+
+
+
+
+```{r}
+head(df_num_test
+     )
+```
+
+```{r}
+colnames(df_num_test
+         )
+```
+```{r}
+
+```
 
 

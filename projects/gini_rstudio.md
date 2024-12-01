@@ -1,4 +1,4 @@
-gini_rstudio
+Gini and the Iris Dataset
 ================
 HGF
 2024-11-18
@@ -19,7 +19,7 @@ indeed ‘unequal’ they are using these statistical models.
 Here i’m going to apply the Gini Index to the Iris data set, and see if
 we can build any insights.
 
-# libraries & data
+# Libraries & data
 
 ``` r
 library(gglorenz)
@@ -34,11 +34,11 @@ library(rmarkdown)
 ## Gini
 
 I’m interested in inequality. Typically one uses measurements of
-inequality for looking at distrubution of wealth/GDP etc. Here i’ll be
-applying it to the iris dataset.
+inequality for looking at distribution of wealth/GDP etc. Here I’ll be
+applying it to the iris data set.
 
 The higher the gini value (0-1), the more unequal the data is, and
-therefore, the less homogenous.
+therefore, the less homogeneous.
 
 ``` r
 head(iris)
@@ -69,15 +69,15 @@ print(gini_vals)
     ## Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
     ##   0.08042365   0.07915104   0.26148542   0.35926996
 
-### 
+### Not much to say!
 
 That doesn’t tell us much at all as we have a series of different
 species in the dataset.
 
-Different specices will have different morphological traits. Lets get a
-closer look at the homogenity between species.
+Different species will have different morphological traits. Lets get a
+closer look at the homogeneity between species.
 
-i’m going to actual make a function this time rather than have it as an
+I’m going to actual make a function this time rather than have it as an
 anonymous one.
 
 ``` r
@@ -110,9 +110,29 @@ print(gini_species)
     ##     setosa versicolor  virginica 
     ## 0.20861789 0.08256410 0.07587364
 
-Thats great, we can now see each species gini values for each
-morphological measurement, generally they all look very homogenous. The
-only outerlier looks like Setosa with its Petal.Width at 0.2, whereas
-all other values are \<0.01.
+That’s great, we can now see each species gini values for each
+morphological measurement, generally they all look very homogeneous. The
+only outlier looks like Setosa with its Petal.Width at 0.2, whereas all
+other values are \<0.01.
 
 Lets graph it next to see how it looks.
+
+``` r
+ggplot(iris, aes(Petal.Width, color = Species), lwd = 1) +
+stat_lorenz(desc = TRUE) +
+geom_abline(linetype = "solid", color = "black", size=1) +
+theme_classic()
+```
+
+![](gini_rstudio_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+Here we can see the *45^o* abline representing 0, or ‘perfect equality’.
+The further away from this line our Petal Width for each species is, the
+less homogeneous (or ‘higher inequality’) that species petal width is.
+Essentially, from our Gini value of 0.20861789 for Setosa, and our
+graphing here with this Lorenz graph, we can say that the petal width of
+this species is much more unequal than other species. A measurement like
+this can be critical for manufacturing processes,
+agriculture/horticulture and a myriad of other industries as it
+identifies an element that falls outside the norm for producing
+consistent results.
