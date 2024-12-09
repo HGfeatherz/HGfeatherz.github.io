@@ -1,0 +1,16 @@
+---
+title: "Embedded"
+author: "HGF"
+date: "2024-12-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+During my PhD, I started looking at embedded software development (think writing code to a chip on a board, with a specific purpose in mind like measuring temperature). This was the height of Covid restrictions and I needed to optimise measurements.
+To this end, I ended up building a sensor array for measuring Total Volatics and CO2.
+
