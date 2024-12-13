@@ -53,10 +53,3 @@ I use the Iris data and a modeling system typically applied to financial data.
 [Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/gini_rstudio.md)
 
 
-**Project 5**
-
-*OEE* [Python]
-
-I was recently introduced into the world of FMCG (fast moving consumer goods) and the efforts around optimisation and increasing effeciacy. To that end, I found some data and an example of caclating the Overall Equipment Effectiveness (OEE) of production lines.
-
-[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/oee.ipynb)
