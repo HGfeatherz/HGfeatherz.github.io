@@ -53,3 +53,12 @@ I use the Iris data and a modeling system typically applied to financial data.
 [Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/gini_rstudio.md)
 
 
+**Project 5**
+
+*OEE* [Python]
+
+Here I look at some Overall Operating Efficency data. 
+
+[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/oee.ipynb)
+
+
