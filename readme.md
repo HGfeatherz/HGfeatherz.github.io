@@ -50,7 +50,7 @@ Typically I use R or Qgis for GIS purposes, but I found a really simple tutorial
 I wanted to demonstrate the potential for interepreting biological data through a different lense. Here
 I use the Iris data and a modeling system typically applied to financial data.
 
-[Github](https://github.com/HGfeatherz/gini-inequality/README.md)
+[Github](https://github.com/HGfeatherz/gini-inequality/blob/main/README.md)
 
 
 **Project 5**
