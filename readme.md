@@ -3,7 +3,7 @@
 
 
 # Harry Featherstone
-### Data Scientist
+### Data Scientist/Analyst
 
 
 
@@ -11,9 +11,9 @@
 
 # About Me
 
-I've spent the last couple of years working as a data scientist for AngloAmerican, where we've been building the ground for a new fertiliser product 'POLY4'. My role there is quite broad and always exciting. I work within sales and marketing, helping answer the questions from clients and our agronomists through powerful statistical analysis, visuals, dashboards, modeling etc. Anything needed to generate that extra value from our data!
-
-I also spent the years before that completing a PhD. This was focused on improving peat-free growing media for potted herbs (think the basil plants you'd buy in the supermarket). It was during this period I found the benefits of programming and haven't looked back since.
+I've spent the past few years working as a Data Scientist for AngloAmerican (agriculture/crop nutrients) and more recently a Data Analyst at McCain Foods (FMCG).
+Over the course of the past few years, i've built a variety of skills that i'm hoping to show here. This is just a small collection of ideas and interests I have, feel free to have a look at the README's and send a message with any questions.
+I have particular interest in homelabbing currently (turns out running postgres on a headless pi cluster is quite straightforward) as well as automating processes (thank you whoever made cron on linux).
 
 # Projects
 
