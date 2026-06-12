@@ -32,7 +32,7 @@ This is a quick look at some of my PhD data, I wanted to remind myself of how it
 
 A foray into ML models, looking at the iris dataset for categorising plant species using K-clustering
 
-[Github](https://github.com/HGfeatherz/HGfeatherz.github.io/tree/main/projects/KNN_r.md)
+[Github](https://github.com/HGfeatherz/knn-classification-analysis)
 
 **Project 3**
 
